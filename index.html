@@ -3,132 +3,106 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>DK WIN VIP PREDICTOR - SAFAIT</title>
+    <title>VIP PREDICTOR - SAFAIT</title>
     <style>
-        :root { --neon: #00ffcc; --gold: #ffcc00; --red: #ff3344; --bg: #05070a; }
-        body { font-family: 'Poppins', sans-serif; background: var(--bg); color: #fff; display: flex; justify-content: center; align-items: center; min-height: 100vh; margin: 0; overflow: hidden; }
+        :root { --neon: #00ffcc; --gold: #ffcc00; --bg: #05070a; }
+        body { font-family: sans-serif; background: var(--bg); color: #fff; display: flex; justify-content: center; align-items: center; min-height: 100vh; margin: 0; }
         
-        /* Password Lock Screen */
-        #loginScreen { width: 340px; background: #0f121a; padding: 35px; border-radius: 40px; border: 1px solid #1f2633; text-align: center; box-shadow: 0 0 50px rgba(0, 255, 204, 0.1); z-index: 100; }
-        .login-input { width: 90%; padding: 12px; border-radius: 12px; border: 1px solid var(--neon); background: #000; color: #fff; text-align: center; font-size: 18px; margin-bottom: 20px; outline: none; box-shadow: inset 0 0 5px var(--neon); }
+        /* Password Screen */
+        #loginScreen { width: 320px; background: #0f121a; padding: 30px; border-radius: 30px; border: 1px solid #1f2633; text-align: center; display: block; }
+        .login-input { width: 90%; padding: 12px; border-radius: 10px; border: 1px solid var(--neon); background: #000; color: #fff; text-align: center; font-size: 18px; margin-bottom: 20px; outline: none; }
         
-        /* Main App Interface */
-        #mainApp { display: none; width: 380px; background: #0f121a; padding: 30px; border-radius: 45px; border: 1px solid #1f2633; text-align: center; box-shadow: 0 0 60px rgba(0, 255, 204, 0.15); position: relative; }
+        /* Main App Interface (Initially Hidden) */
+        #mainApp { display: none; width: 360px; background: #0f121a; padding: 25px; border-radius: 40px; border: 1px solid #1f2633; text-align: center; }
         
-        .server-status { font-size: 10px; color: var(--neon); letter-spacing: 2px; margin-bottom: 15px; text-transform: uppercase; display: flex; justify-content: center; align-items: center; gap: 5px; }
-        .dot { width: 6px; height: 6px; background: var(--neon); border-radius: 50%; animation: blink 1s infinite; }
-        @keyframes blink { 0% { opacity: 1; } 50% { opacity: 0.3; } 100% { opacity: 1; } }
+        .input-card { background: #000; padding: 20px; border-radius: 20px; margin-bottom: 20px; border: 1px solid #333; }
+        input[type="number"] { width: 85%; padding: 12px; border-radius: 10px; border: 1px solid #444; background: #111; color: var(--neon); text-align: center; font-size: 18px; outline: none; margin-bottom: 15px; }
+        
+        .btn { background: var(--neon); color: #000; border: none; padding: 12px; border-radius: 12px; font-weight: bold; cursor: pointer; width: 100%; font-size: 16px; text-transform: uppercase; }
+        
+        .result-box { background: #000; border-radius: 30px; padding: 30px 10px; border: 2px solid #232a35; min-height: 200px; }
+        .main-num { font-size: 100px; font-weight: bold; color: var(--gold); margin: 10px 0; }
+        .badge { padding: 10px 20px; border-radius: 10px; font-weight: bold; display: inline-block; margin: 5px; }
 
-        .input-card { background: #000; padding: 20px; border-radius: 25px; margin-bottom: 25px; border: 1px solid #232a35; }
-        input[type="number"] { width: 85%; padding: 12px; border-radius: 12px; border: 1px solid #333; background: #111; color: var(--neon); text-align: center; font-size: 18px; font-weight: bold; outline: none; margin-bottom: 15px; }
-        
-        .btn { background: var(--neon); color: #000; border: none; padding: 15px; border-radius: 15px; font-weight: 900; cursor: pointer; width: 100%; font-size: 16px; text-transform: uppercase; transition: 0.3s; box-shadow: 0 5px 15px rgba(0, 255, 204, 0.2); }
-        .btn:hover { background: #fff; transform: translateY(-2px); }
-
-        .result-box { background: radial-gradient(circle, #161b22, #000); border-radius: 35px; padding: 40px 10px; border: 2px solid #232a35; min-height: 220px; position: relative; }
-        .main-num { font-size: 110px; font-weight: 900; color: var(--gold); line-height: 1; margin: 15px 0; text-shadow: 0 0 40px rgba(255, 204, 0, 0.6); transition: 0.5s; }
-        .badge { padding: 12px 28px; border-radius: 15px; font-weight: 900; font-size: 18px; display: inline-block; margin: 5px; text-transform: uppercase; letter-spacing: 1px; }
-
-        .footer { margin-top: 35px; border-top: 1px dashed #1f2633; padding-top: 20px; }
-        .dev-label { font-size: 10px; color: #555; letter-spacing: 3px; margin-bottom: 5px; }
-        .safait-name { font-size: 32px; font-weight: 900; letter-spacing: 8px; background: linear-gradient(90deg, #fff, var(--gold), var(--neon), #fff); background-size: 200% auto; -webkit-background-clip: text; -webkit-text-fill-color: transparent; animation: shine 3s linear infinite; }
-        @keyframes shine { to { background-position: 200% center; } }
+        .footer { margin-top: 30px; border-top: 1px solid #1f2633; padding-top: 15px; }
+        .safait-name { font-size: 30px; font-weight: 900; letter-spacing: 5px; color: var(--gold); text-shadow: 0 0 10px rgba(255, 204, 0, 0.5); }
     </style>
 </head>
 <body>
 
 <div id="loginScreen">
-    <div class="server-status"><div class="dot"></div> ENCRYPTED ACCESS</div>
-    <h2 style="color: #fff; margin: 10px 0;">VIP LOGIN</h2>
-    <input type="password" id="passInput" class="login-input" placeholder="ENTER ACCESS CODE">
+    <h2 style="color: var(--neon);">VIP LOGIN</h2>
+    <p style="font-size: 12px; color: #888;">Enter Access Code</p>
+    <input type="password" id="passInput" class="login-input" placeholder="Password">
     <button class="btn" onclick="checkPassword()">AUTHORIZE</button>
 </div>
 
 <div id="mainApp">
-    <div class="server-status"><div class="dot"></div> DK WIN SERVER ACTIVE</div>
+    <h2 style="color: #fff; margin-bottom: 15px;">DK WIN PREDICTOR</h2>
     
     <div class="input-card">
-        <div style="font-size: 11px; color: #666; margin-bottom: 10px;">TARGET PERIOD LAST 3/4 DIGITS</div>
-        <input type="number" id="periodInput" placeholder="ENTER HERE">
-        <button class="btn" onclick="calculateWin()">ANALYZE DATA</button>
+        <input type="number" id="periodInput" placeholder="Period Last Digits">
+        <button class="btn" onclick="calculateWin()">ANALYZE</button>
     </div>
 
     <div class="result-box">
-        <div id="statusText" style="font-size: 11px; color: #444; letter-spacing: 1px;">WAITING FOR DATA SYNC...</div>
+        <div id="statusText" style="font-size: 12px; color: #555;">READY</div>
         <div id="numDisp" class="main-num">?</div>
         <div style="display: flex; justify-content: center; gap: 10px;">
-            <div id="cBadge" class="badge" style="background: #1a1f2b; color: #333;">COLOR</div>
-            <div id="sBadge" class="badge" style="background: #1a1f2b; color: #333;">SIZE</div>
+            <div id="cBadge" class="badge" style="background: #222;">COLOR</div>
+            <div id="sBadge" class="badge" style="background: #222;">SIZE</div>
         </div>
     </div>
 
     <div class="footer">
-        <div class="dev-label">POWERED BY</div>
+        <div style="font-size: 10px; color: #444;">DEVELOPED BY</div>
         <div class="safait-name">SAFAIT</div>
     </div>
 </div>
 
 <script>
-    // Password set: 1234 (You can change it here)
-    const correctPassword = "1234"; 
-
+    // পাসওয়ার্ড এখানে সেট করা (বড় হাতের বা ছোট হাতের কোনো ব্যাপার না)
     function checkPassword() {
-        const input = document.getElementById('passInput').value;
-        if (input === correctPassword) {
+        var p = document.getElementById('passInput').value;
+        if (p === "1234") {
             document.getElementById('loginScreen').style.display = 'none';
             document.getElementById('mainApp').style.display = 'block';
         } else {
-            alert("ACCESS DENIED: WRONG PASSWORD!");
+            alert("Wrong Password! Use: 1234");
         }
     }
 
     function calculateWin() {
-        const input = document.getElementById('periodInput').value;
-        if (!input) {
-            alert("Enter Period First!");
-            return;
-        }
+        var input = document.getElementById('periodInput').value;
+        if (!input) { return alert("Enter Period!"); }
 
-        const nDisp = document.getElementById('numDisp');
-        const cBad = document.getElementById('cBadge');
-        const sBad = document.getElementById('sBadge');
-        const sText = document.getElementById('statusText');
+        var nDisp = document.getElementById('numDisp');
+        var cBad = document.getElementById('cBadge');
+        var sBad = document.getElementById('sBadge');
 
-        sText.innerText = "DECRYPTING SERVER ALGORITHM...";
-        nDisp.style.filter = "blur(15px)";
-        nDisp.innerText = "8";
+        nDisp.innerText = "⏳";
 
-        setTimeout(() => {
-            // Advanced Mathematical Logic for DK WIN
-            const seed = parseInt(input);
-            const winNum = (seed * 11 + 5) % 10; 
+        setTimeout(function() {
+            // DK WIN Logic
+            var seed = parseInt(input);
+            var winNum = (seed * 11 + 5) % 10; 
 
-            nDisp.style.filter = "blur(0)";
             nDisp.innerText = winNum;
-            sText.innerText = "SUCCESS: DATA FETCHED FOR " + input;
 
-            // Color Logic
-            let color = "";
-            if (winNum === 0 || winNum === 5) {
-                color = "VIOLET";
-                cBad.style.background = "linear-gradient(45deg, #ff3344, #9b59b6)";
-            } else if (winNum % 2 === 0) {
-                color = "RED";
+            if (winNum % 2 === 0) {
+                cBad.innerText = "RED";
                 cBad.style.background = "#ff3344";
             } else {
-                color = "GREEN";
+                cBad.innerText = "GREEN";
                 cBad.style.background = "#00ff88";
             }
-            cBad.innerText = color;
             cBad.style.color = "#000";
 
-            // Size Logic
-            const size = winNum >= 5 ? "BIG" : "SMALL";
+            var size = winNum >= 5 ? "BIG" : "SMALL";
             sBad.innerText = size;
-            sBad.style.background = "#000";
-            sBad.style.color = size === "BIG" ? var(--gold) : var(--neon);
-            sBad.style.border = "1px solid " + (size === "BIG" ? "#ffcc00" : "#00ffcc");
-        }, 1200);
+            sBad.style.background = "#1a1f2b";
+            sBad.style.color = size === "BIG" ? "#ffcc00" : "#00ffcc";
+        }, 800);
     }
 </script>
 
